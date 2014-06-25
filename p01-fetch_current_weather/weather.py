@@ -12,13 +12,12 @@ def findIP():
   ip = re.search(ipPattern,query)
   return ip.group()
 
-def fetchWeather(ip):
-  url = ww_weather_url + "?" + "key=" + ww_apikey + "&q=" + ip
-  query = urllib.urlopen(url).read()
+myIP = findIP()
 
-def findLocation(ip):
-  url = ww_city_url + "?" + "key=" + ww_apikey + "&q=" + ip
+def queryWWO(api_url,ip):
+  url = api_url + "?" + "key=" + ww_apikey + "&q=" + ip
   query = urllib.urlopen(url).read()
-  print(url)
+  return query
 
-findLocation(findIP())
+print(queryWWO(ww_city_url,myIP))
+print(queryWWO(ww_weather_url,myIP))
