@@ -11,7 +11,9 @@ def retrieveIP():
   return query
 
 def parseIP(query):
-  ipPattern = re.compile("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
+  ipNumberPattern = "(25[0-4]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+  ipRE = "{0}.{1}.{2}.{3}".format(ipNumberPattern,ipNumberPattern,ipNumberPattern,ipNumberPattern)
+  ipPattern = re.compile(ipRE)
   ip = re.search(ipPattern,query)
   return ip.group()
 
