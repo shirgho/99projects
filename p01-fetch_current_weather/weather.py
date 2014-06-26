@@ -5,14 +5,17 @@ import json
 wwo_apikey = "e6242d7fb7400876f8f047e897b4f5a2f61c7246"
 wwo_weather_url = "http://api.worldweatheronline.com/free/v1/weather.ashx"
 
-def findIP():
+def retrieveIP():
   url = "http://checkip.dyndns.org"
   query = urllib.urlopen(url).read()
+  return query
+
+def parseIP(query):
   ipPattern = re.compile("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
   ip = re.search(ipPattern,query)
   return ip.group()
 
-myIP = findIP()
+myIP = parseIP(retrieveIP())
 
 def queryWWO(api_url,ip):
   url = api_url + "?" + "key=" + wwo_apikey + "&q=" + ip + "&includeLocation=yes" + "&format=json"
@@ -25,4 +28,5 @@ def parseWeather(data_json):
   for item in weather_conditions:
     print('{key} : {value}'.format(key=item[0], value=item[1]))
 
-parseWeather(queryWWO(wwo_weather_url,myIP))
+if __name__ == '__main__':
+  parseWeather(queryWWO(wwo_weather_url,myIP))
