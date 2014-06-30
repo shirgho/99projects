@@ -1,0 +1,15 @@
+
+* P02 - Regex query tool
+** Project
+Regex Query Tool - A tool that allows the user to enter a text string and then 
+in a separate control enter a regex pattern. It will run the regular expression 
+against the source text and return any matches or flag errors in the regular expression.
+** Strategy
+For this, I want to make a small web interface.
++ one text area for the input (OPTIONAL : upload file)
++ one text area for the regex pattern
++ result displayed using CSS for text-coloring
+** Features
+*** DONE handle regex errors
+** What I learned
++ handling exceptions
