@@ -13,3 +13,17 @@ For this, I want to make a small web interface.
 *** DONE handle regex errors
 ** What I learned
 + handling exceptions
+* P03 - Page scraper
+** Project
+Page Scraper - Create an application which connects to a site and pulls out all links, or images,
+and saves them to a list. Optional: Organize the indexed content and don’t allow duplicates. 
+Have it put the results into an easily searchable index file.
+** Analysis
+If I want to make it from scratch, I'll need a lot of regex. There are also tools like [Scrapy](http://scrapy.org/) that
+I can use. My choice then ... Even though Scrapy looks interesting, I want to do it myself
+** Steps
+*** DONE Connect to a website
+*** TODO Generate a map of the website (Optional, I'm parsing 9gag.com/trending for now)
+*** DONE For each webpage, retrieve the source code
+*** TODO Parse the source code to extract all the links/images
+*** TODO Generate an index file to store the data (JSON or XML ?)
