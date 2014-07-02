@@ -7,10 +7,12 @@ def connectSite(url):
     page = urllib.urlopen(url).read()
     return page
 
-def getArticles(page):
-    articlePattern = re.compile('<header.*?>(.*?)</header>', re.DOTALL)
-    articleList = re.findall(articlePattern, page)
-    return articleList[2]
+def getLinks(page):
+    linkPattern = re.compile('src="(.*?.jpg|.*?.png|.*?.gif)"')
+    linkList = re.findall(linkPattern, page)
+    return linkList
 
 if __name__ == '__main__':
-    print getArticles(connectSite(base_url))
+    links = getLinks(connectSite(base_url))
+    for link in links:
+        print link
