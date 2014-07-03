@@ -6,7 +6,7 @@ def checkRegex():
         return pattern
     except re.error:
         print('non-valid regex, try again')
-        checkRegex()
+        return checkRegex()
     
 def executeRegex():
     text = raw_input('Your text : ')
