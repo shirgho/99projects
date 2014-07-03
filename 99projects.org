@@ -28,5 +28,13 @@ Even though Scrapy looks interesting, I want to do it myself
 *** DONE Connect to a website
 *** TODO Generate a map of the website (Optional, I'm parsing 9gag.com/trending for now)
 *** DONE For each webpage, retrieve the source code
-*** TODO Parse the source code to extract all the links/images
-*** TODO Generate an index file to store the data (JSON or XML ?)
+*** DONE Parse the source code to extract all the links/images
+*** DONE Associate each image with the caption it comes with
+*** DONE Generate an index file to store the data (JSON or XML ?)
+** Notes
+I didn't know what to do. At first, I wanted to make a map of all
+the links in a website. It's doable of course, but very time-expensive.
+So I focused on one page of a website in particular. I studied its 
+source code and created the regex rules accordingly.
+** What I learned
+File opening and writing
