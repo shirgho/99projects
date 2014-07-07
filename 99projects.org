@@ -38,3 +38,13 @@ So I focused on one page of a website in particular. I studied its
 source code and created the regex rules accordingly.
 ** What I learned
 File opening and writing
+** Refactoring thanks to Reddit
+*** DONE Error handling
+*** DONE Replace urllib2 by request
+*** TODO Check for robots.txt
+*** TODO Better parsing method (BeautifulSoup or DOM parser)
+*** TODO Store in a better place and watch for duplicates
+* P04 - Sudoku Generator
+** Idea
+A nice idea from reddit. I was fond of sudoku in the past
+Why not create an ASCII-sudoku generator 
