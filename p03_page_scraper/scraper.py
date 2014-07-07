@@ -2,7 +2,7 @@ import requests
 import re
 import json
 
-base_url = 'http://9gag.com/trending'
+BASE_URL = 'http://9gag.com/trending'
 
 def connectSite(url):
     page = requests.get(url).text
@@ -22,12 +22,12 @@ def parseLinks(page):
 
 def exploreLinks(linkList):
     indexArticle = 1
-    indexLinks = dict() 
+    indexLinks = list() 
     for link in linkList:
         page = connectSite(link.encode('utf-8'))
-        indexLinks[indexArticle] = parseLinks(page)
-        print indexLinks[indexArticle]
-        indexArticle += 1
+        infos = parseLinks(page)
+        indexLinks.append(infos)
+        print infos
     return indexLinks
 
 def getData(url, max_tries = 5):
@@ -35,7 +35,7 @@ def getData(url, max_tries = 5):
     articles = None
     while articles is None and tries < max_tries:
         try:
-            data = connectSite(base_url)
+            data = connectSite(url)
             links = getLinks(data)
             articles = exploreLinks(links)
         except Exception as error:
@@ -43,11 +43,19 @@ def getData(url, max_tries = 5):
             tries += 1
     return articles
 
-def genJson(articles):
-    with open('indexedArticles.json', 'w') as articlesJson:
-        json.dump(articles, articlesJson)
-    return 'Articles indexed'
+def genIndex(articles):
+    with open('indexedArticles.txt', 'a+') as indexTXT:
+        lastIndexedArticle = ''
+        for index, line in enumerate(indexTXT):
+            if index == 1:
+                lastIndexedArticle = line.strip()
+                break
+        for article in articles:
+            if article[1] == lastIndexedArticle:
+                print('Article already indexed, end of process')
+                break
+            indexTXT.write(article[0] + '\n' + article[1] + '\n\n')
 
 if __name__ == '__main__':
-    articles = getData(base_url)
-    genJson(articles)
+    articles = getData(BASE_URL)
+    genIndex(articles)
