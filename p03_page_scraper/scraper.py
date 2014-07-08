@@ -8,24 +8,24 @@ def connectSite(url):
     page = requests.get(url).text
     return page
 
-def getLinks(page):
+def getUrlPosts(page):
     linkPattern = re.compile('data-entry-url="(.*?)"')
     linkList = re.findall(linkPattern, page)
     return linkList
 
-def parseLinks(page):
+def parsePost(page):
     titlePattern = re.compile('<h2 class="badge-item-title">(.*?)</h2>')
     imagePattern = re.compile('<link rel="image_src" href="(.*?)"')
     catchTitle = re.search(titlePattern, page)
     catchImage = re.search(imagePattern, page)
     return (catchTitle.group(1), catchImage.group(1))
 
-def exploreLinks(linkList):
+def exploreUrlPosts(linkList):
     indexArticle = 1
     indexLinks = list() 
     for link in linkList:
         page = connectSite(link.encode('utf-8'))
-        infos = parseLinks(page)
+        infos = parsePost(page)
         indexLinks.append(infos)
     return indexLinks
 
@@ -35,8 +35,8 @@ def getData(url, max_tries = 5):
     while articles is None and tries < max_tries:
         try:
             data = connectSite(url)
-            links = getLinks(data)
-            articles = exploreLinks(links)
+            links = getUrlPosts(data)
+            articles = exploreUrlPosts(links)
         except Exception as error:
             print error
             tries += 1
