@@ -1,6 +1,5 @@
 import requests
 import re
-import json
 
 BASE_URL = 'http://9gag.com/trending'
 
