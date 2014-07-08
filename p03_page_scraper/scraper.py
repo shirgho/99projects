@@ -27,7 +27,6 @@ def exploreLinks(linkList):
         page = connectSite(link.encode('utf-8'))
         infos = parseLinks(page)
         indexLinks.append(infos)
-        print infos
     return indexLinks
 
 def getData(url, max_tries = 5):
@@ -43,18 +42,29 @@ def getData(url, max_tries = 5):
             tries += 1
     return articles
 
+def spotDuplicates(articles):
+    with open('indexedArticles.txt', 'r') as indexTXT:
+        data = indexTXT.readlines()
+        indexDuplicate = len(articles)
+        try:
+            lastUrlImage = data[-2].strip()
+            for article in articles:
+                url_image = article[1].encode('ascii','ignore')
+                if url_image == lastUrlImage:
+                    indexDuplicate = articles.index(article)
+                    print 'duplicates spotted and eliminated'
+        except IndexError:
+            print 'indexedArticles.txt empty, creating it'
+        return indexDuplicate
+            
+
 def genIndex(articles):
     with open('indexedArticles.txt', 'a+') as indexTXT:
-        lastIndexedArticle = ''
-        for index, line in enumerate(indexTXT):
-            if index == 1:
-                lastIndexedArticle = line.strip()
-                break
-        for article in articles:
-            if article[1] == lastIndexedArticle:
-                print('Article already indexed, end of process')
-                break
-            indexTXT.write(article[0] + '\n' + article[1] + '\n\n')
+        indexDuplicate = spotDuplicates(articles)
+        for article in reversed(articles[:indexDuplicate]):
+            title_article, url_image = article
+            indexTXT.write(title_article + '\n' + url_image + '\n\n')
+    print 'indexing completed'
 
 if __name__ == '__main__':
     articles = getData(BASE_URL)
