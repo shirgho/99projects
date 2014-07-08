@@ -1,30 +1,30 @@
 import requests
-import re
+import bs4
 
 BASE_URL = 'http://9gag.com/trending'
 
 def connectSite(url):
     page = requests.get(url).text
-    return page
+    parsedPage = bs4.BeautifulSoup(page, 'lxml')
+    return parsedPage
 
-def getUrlPosts(page):
-    linkPattern = re.compile('data-entry-url="(.*?)"')
-    linkList = re.findall(linkPattern, page)
-    return linkList
+def getPostsUrls(parsedPage):
+    links = parsedPage.find_all('article')
+    postsUrls = list() 
+    for link in links:
+        postsUrls.append(link['data-entry-url'])
+    return postsUrls
 
-def parsePost(page):
-    titlePattern = re.compile('<h2 class="badge-item-title">(.*?)</h2>')
-    imagePattern = re.compile('<link rel="image_src" href="(.*?)"')
-    catchTitle = re.search(titlePattern, page)
-    catchImage = re.search(imagePattern, page)
-    return (catchTitle.group(1), catchImage.group(1))
+def getPostInfos(parsedPost):
+    catchTitle = parsedPost.article.h2.contents[0]
+    catchImage = parsedPost.article.img['src']
+    return (catchTitle, catchImage)
 
-def exploreUrlPosts(linkList):
-    indexArticle = 1
+def explorePostsUrls(postsUrls):
     indexLinks = list() 
-    for link in linkList:
-        page = connectSite(link.encode('utf-8'))
-        infos = parsePost(page)
+    for url in postsUrls:
+        page = connectSite(url.encode('utf-8'))
+        infos = getPostInfos(page)
         indexLinks.append(infos)
     return indexLinks
 
@@ -34,8 +34,8 @@ def getData(url, max_tries = 5):
     while articles is None and tries < max_tries:
         try:
             data = connectSite(url)
-            links = getUrlPosts(data)
-            articles = exploreUrlPosts(links)
+            links = getPostsUrls(data)
+            articles = explorePostsUrls(links)
         except Exception as error:
             print error
             tries += 1

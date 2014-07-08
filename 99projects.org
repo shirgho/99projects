@@ -43,8 +43,9 @@ source code and created the regex rules accordingly.
 *** DONE Error handling
 *** DONE Replace urllib2 by request
 *** TODO Check for robots.txt
-*** TODO Better parsing method (BeautifulSoup or DOM parser)
+*** DONE Better parsing method (BeautifulSoup or DOM parser)
 *** DONE Store in a better place and watch for duplicates
+*** TODO Bug fix, gif are not recognized
 ** Beautiful Soup 4 install
 + sudo apt-get install python-dev
 + sudo apt-get install libxml2-dev
