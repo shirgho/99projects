@@ -57,3 +57,7 @@ source code and created the regex rules accordingly.
 ** Idea
 A nice idea from reddit. I was fond of sudoku in the past
 Why not create an ASCII-sudoku generator 
+** What I want to learn
+OOP
+** Steps
+*** TODO Generate an ascii-grid
