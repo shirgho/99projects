@@ -21,7 +21,11 @@ def gridSudoku(sudoku_values):
 
 def genEmptySudoku():
     empty_sudoku = list()
-    empty_sudoku = [[0]*9]*9
+    for row in xrange(9):
+        row_list = []
+        for column in xrange(9):
+            row_list.append(0)
+        empty_sudoku.append(row_list)        
     return empty_sudoku
 
 def randomSudoku():
@@ -80,7 +84,7 @@ def findBlock(coordinates_number):
 def checkRules(number, coordinates_number, sudoku):
     row, column = coordinates_number
     block = findBlock(coordinates_number)
-    return checkRow(number, row, sudoku) #and checkColumn(number, column, sudoku) and checkBlock(number, block, sudoku)
+    return checkRow(number, row, sudoku) and checkColumn(number, column, sudoku) and checkBlock(number, block, sudoku)
 
 def genNumber(coordinates_number, sudoku):
     row_number, column_number = coordinates_number
@@ -98,6 +102,17 @@ def genSudoku():
             sudoku_values[row][column] = genNumber((row,column),sudoku_values)
     return sudoku_values
 
+def attemptGenSudoku(trials = 1000):
+    sudoku = list()
+    for trial in xrange(trials):
+        try:
+            sudoku = genSudoku()
+            print "Success after {} attempts".format(trial+1)
+            return sudoku
+        except IndexError:
+            pass
+    return genEmptySudoku()
+    
+    
 if __name__ == '__main__':
-    sudoku = genSudoku()
-    print gridSudoku(sudoku)
+    print gridSudoku(attemptGenSudoku())

@@ -60,4 +60,10 @@ Why not create an ASCII-sudoku generator
 ** What I want to learn
 OOP
 ** Steps
-*** TODO Generate an ascii-grid
+*** DONE Generate an ascii-grid
+*** DONE Create Rules of Sudoku
+*** DONE Generate sudoku according to rules
+*** TODO Switch from bruteforce method to a more efficient one
+** Interesting bug
+empty_sudoku = [[0]*9]*9 create 9 arrays of 9 zeros which are clones. 
+What happens in array 0 happens in all the other ones
