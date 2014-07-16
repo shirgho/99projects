@@ -127,7 +127,5 @@ def genSudokuProblem(sudoku_solution):
 if __name__ == '__main__':
     sudoku_sol = attemptGenSudokuSolution()
     print gridSudoku(sudoku_sol)
-
     sudoku_pb = genSudokuProblem(sudoku_sol)
     print gridSudoku(sudoku_pb)
-
